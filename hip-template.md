@@ -1,7 +1,7 @@
 ---
 hip: <to be assigned>
 title: <HIP title>
-author: <a list of the author's or authors' name(s) and/or username(s), or name(s) and email(s), e.g. (use with the parentheses or triangular brackets): FirstName LastName (@GitHubUsername), FirstName LastName <foo@bar.com>, FirstName (@GitHubUsername) and GitHubUsername (@GitHubUsername)>
+author: <a list of the author's or authors' name(s) and/or username(s), or name(s) and email(s), e.g. (use with the parentheses or triangular brackets): FirstName LastName (@GitHubUsername), FirstName LastName <foo@bar.com>
 status: Draft
 type: <Standards Track, Meta, or Informational>
 category: <Core, Networking, Interface, Identity-Wallet, SDK>
