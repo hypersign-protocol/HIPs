@@ -10,9 +10,7 @@ created: <date created on, in ISO 8601 (yyyy-mm-dd) format>
 
 This is the suggested template for new HIPs.
 
-Note that an HIP number will be assigned by an editor. When opening a pull request to submit your HIP, please use an abbreviated title in the filename, `hip-draft_title_abbrev.md`.
-
-The title should be 44 characters or less.
+Note that an HIP number will be assigned by an editor. When opening a pull request to submit your HIP, please use an abbreviated title in the filename, `hip-<hip_number>.md`.
 
 ## Simple Summary
 "If you can't explain it simply, you don't understand it well enough." Provide a simplified and layman-accessible explanation of the HIP. Imagine an email subject line, GitHub PR title, or forum post title.
