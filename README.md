@@ -4,7 +4,9 @@ Hypersign Improvement Proposals (HIPs) describe standards for the Hypersign plat
 
 ## Contributing
 
-Clone the repository and add your HIP to it. There is a [template HIP here](https://github.com/hypersign-protocol/HIPs/blob/main/hip-template.md). Then submit a Pull Request to [Hypersign's EIPs repository](https://github.com/hypersign-protocol/HIPs). Make sure you create a new branch before submitting the PR.
+* Clone the repository and add your HIP to it. 
+* Write your proposal. There is a [template HIP here](https://github.com/hypersign-protocol/HIPs/blob/main/hip-template.md). 
+* Then submit a Pull Request to [Hypersign's EIPs repository](https://github.com/hypersign-protocol/HIPs). 
 
 ## HIP status
 
