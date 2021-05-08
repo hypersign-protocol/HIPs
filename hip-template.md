@@ -27,6 +27,9 @@ The motivation section should describe the "why" of this HIP. What problem does 
 ## Rationale
 The rationale fleshes out the specification by describing what motivated the design and why particular design decisions were made. It should describe alternate designs that were considered and related work, e.g. how the feature is supported in other languages.
 
+## Privacy Concerns
+Make the HIP clearly explain all privacy concerns with this proposals.
+
 ## Backwards Compatibility
 (Optional) All HIPs that introduce backwards incompatibilities must include a section describing these incompatibilities and their severity. The HIP must explain how the author proposes to deal with these incompatibilities. HIP submissions without a sufficient backwards compatibility treatise may be rejected outright.
 
