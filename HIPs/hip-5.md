@@ -53,15 +53,16 @@ If we break down the steps performed in the `VN`, it would be something like thi
 
 ```js
 function assertRequest(serviceRequest) {
-  const { user, idp, vc } = serviceRequest;
+  const { issuer: issuerDID, vc, proof } = serviceRequest;
+  const { id: userDID } = vc;
 
-  if (!validateDID(idp)) {
+  if (!validateDID(issuerDID)) {
     throw new ValidationError("idp DID validation failed");
   }
-  if (!validateDID(user)) {
+  if (!validateDID(userDID)) {
     throw new ValidationError("user DID validation failed");
   }
-  if (!validateVC(vc, user)) {
+  if (!validateVC(vc, proof)) {
     throw new ValidationError("user VC validation failed");
   }
 }
@@ -73,7 +74,7 @@ function validateDID(request) {
   return verifySignature(message, signature, didDoc);
 }
 
-function validateVC(request, entity) {
+function validateVC(cred, proof) {
   const { cred, signature } = request;
   const { did } = entity;
 
@@ -138,7 +139,6 @@ As per [tendermint specifications](https://docs.tendermint.com/master/spec/abci/
 
 - `prove (bool)`: Return Merkle proof with response if possible
 
-
 ### Response:
 
 - `code (uint32)`: Response code.
@@ -157,13 +157,11 @@ Query for data from the application at current or past height.
 Optionally return Merkle proof.
 Merkle proof includes self-describing type field to support many types of Merkle trees and encoding formats.
 
-
 ## Data Structure of Request & Response sent to the relayer
 
 ### Request
 
 - `DID (string)`: The DID of the entity (user/organization) that needs to be verified
-- 
 
 ### Response
 
@@ -171,15 +169,21 @@ Merkle proof includes self-describing type field to support many types of Merkle
 - `Error (string)`: Response error if any
 - `DID Document (string)`: The DID Document of the entity that needs to be verified
 
+## Asumptions
 
-## TODO
+- The querying chain would be running the DID query module
+- The relayer is configured to communicate between both the blockchains
+- The data structure for the DID and DID Doc is standardized and understood by both the chains
 
-- the relayer side changes? or how relayer will query the blockchain using ABCI
-- will it store the information on the querying blockchain?
+## Questions / unknowns
 
-## Rationale
-
-## Privacy Concerns
+- Will there be any changes to the relayer code, do we need custom relayer?
+- How would the relayer query the blockchain using ABCI?
+- Will the response be stored on the querying blockchain or is it only message passing?
+- How long will the original request from the user take if each request is going to spawn 2 inter query chain request (one for issuer and another for user)?
+- Can the two `fetchDID()` requests be sent in parallel for the user and the issuer?
+- If multiple requests from different users keep coming, how would the system associate the request and response received by the query module?
+- If there are multiple DID providers, how does the system figure out which chain to query?
 
 ## Reference
 
