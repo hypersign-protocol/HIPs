@@ -1,7 +1,7 @@
 ---
 hip: 6
 title: Deterministic Did,DidDocument Generation/Verification using Web3-wallets (Metamask,keplr,etc)
-author: Pratap Mridha ([@pratap2018](https://github.com/Pratap2018))
+author: Pratap Mridha [@pratap2018](https://github.com/Pratap2018)
 status: Draft
 type: Standards Track
 category: SDK,Core
