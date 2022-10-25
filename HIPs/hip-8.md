@@ -33,10 +33,8 @@ Message Formats:
 
 All this three message formats can be correctly understood as generic JWMs (ref to DID-Comm spec, DIDComm Plaintext) [Read Here](https://identity.foundation/didcomm-messaging/spec/#iana-media-types)
 
-- Plaintext Message Structure
-    [DIF Spec](https://identity.foundation/didcomm-messaging/spec/#plaintext-message-structure)
+- [DIF Spec](https://identity.foundation/didcomm-messaging/spec/#plaintext-message-structure)
 - [Available Libraries](https://didcomm.org/book/v2/hellolibstools)
-
 
 ## Rationale
 will be added soon
