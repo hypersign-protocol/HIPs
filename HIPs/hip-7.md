@@ -33,9 +33,19 @@ Three types of credential formats
 3. JWT
 
 [context VC](https://www.w3.org/2018/credentials/v1)
+
+[context Blockcerts](https://w3id.org/blockcerts/v2)
+
 [Read More](https://www.w3.org/TR/vc-data-model-2.0/#basic-concepts)
 
-- `@id` - The unique identifier for the credential .
+[Issue Credential Protocol 1.0 Aries](https://github.com/hyperledger/aries-rfcs/blob/main/features/0036-issue-credential/README.md) 
+
+[Issue Credential Protocol 2.0 Aries Very Important](https://github.com/hyperledger/aries-rfcs/blob/main/features/0454-present-proof-v2/README.md)
+
+[Credential issuence subject and holder relationship](https://www.w3.org/TR/vc-data-model/#subject-holder-relationships)
+
+
+- `@id` - The unique context identifier for the credential .
 - `@context` - The JSON-LD context that defines the terms used in the credential. 
 - `id` - A unique identifier for the credential.
 - `type` - A type for the credential.
@@ -53,7 +63,7 @@ Three types of credential formats
 - `refreshService` - A service that can refresh the credential.
 - `validFrom` - The date the credential becomes valid.
 - `validUntil` - The date the credential becomes invalid.
-- `refreshService` - A service that can refresh the credential. [Read More](https://www.w3.org/TR/vc-data-model/#refreshing)
+- `refreshService` - A service that can refresh the credential. [Read More](https://www.w3.org/TR/vc-data-model/#advanced-concepts)
 
 ![CredStruct](./images/credential%20struct.png)
 
