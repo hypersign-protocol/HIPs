@@ -118,11 +118,19 @@ will update soon
 
 ## Reference 
 
+
+
 [Peer DID](https://identity.foundation/peer-did-method-spec)
 
 [Credentials](https://www.w3.org/community/credentials/)
 
+[Use case Credential move wallet to wallet](https://www.w3.org/TR/2019/NOTE-vc-use-cases-20190924/#store-move-claim)
+
+[vc-implementaion reports](https://w3c.github.io/vc-test-suite/implementations/)
+
 [vc-data-model](https://www.w3.org/TR/vc-data-model/)
+
+[vp req spec 2.0](https://w3c-ccg.github.io/vp-request-spec)
 
 [presentation exchange](https://identity.foundation/presentation-exchange/)
 
@@ -131,4 +139,11 @@ will update soon
 [DID Comm (v2) ](https://didcomm.org/book/v2/)
 
 [DID Comm (v2) Premier](https://www.youtube.com/watch?v=TBxWgNmsnvU)
+
+
+[universal wallet experimental ](https://github.com/transmute-industries/universal-wallet)
+
+
+
+
 
