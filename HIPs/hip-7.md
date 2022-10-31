@@ -145,6 +145,8 @@ will update soon
 [universal wallet experimental ](https://github.com/transmute-industries/universal-wallet)
 
 
+[trustbloc wallet](https://github.com/trustbloc/wallet)
+
 
 
 
