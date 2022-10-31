@@ -54,3 +54,5 @@ will be added soon
 [Aries RFC 005](https://github.com/hyperledger/aries-rfcs/tree/main/concepts/0005-didcomm)
 
 [Did Comm 2.0 implementation](https://github.com/decentralized-identity/didcomm-messaging)
+
+[IDF DID Comm](https://identity.foundation/working-groups/did-comm.html)
