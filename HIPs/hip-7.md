@@ -140,6 +140,7 @@ will update soon
 
 [DID Comm (v2) Premier](https://www.youtube.com/watch?v=TBxWgNmsnvU)
 
+[Encrpted Data Vault/ secure data storage](https://identity.foundation/working-groups/secure-data-storage.html)
 
 [universal wallet experimental ](https://github.com/transmute-industries/universal-wallet)
 
