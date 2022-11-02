@@ -147,6 +147,8 @@ will update soon
 
 [trustbloc wallet](https://github.com/trustbloc/wallet)
 
+[self issued openid Provider](https://openid.bitbucket.io/connect/openid-connect-self-issued-v2-1_0.html)
 
+[DID Siop browser ext](https://github.com/decentralized-identity/did-siop-browser-ext)
 
-
+[DID Siop](https://github.com/decentralized-identity/did-siop)
