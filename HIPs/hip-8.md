@@ -22,6 +22,15 @@ Universal wallets are required to share the credentials with the verifiers and t
 Of course, robust mechanisms for secure communication already exist. However, most rely on key registries, identity providers, certificate authorities, browser or app vendors, or similar centralizations. Many are for unstructured rich chat only — or enable value-add behaviors through proprietary extensions. Many also assume a single transport, making it difficult to use the same solution for human and machine conversations, online and offline, simplex and duplex, across a broad set of modalities. And because these limitations constantly matter, composability is limited — every pairing of human and machine for new purposes requires a new endpoint, a new API, and new trust. Workflows that span these boundaries are rare and difficult.
 
 ## Specification
+KeyAgreement :  
+
+    - X25519KeyAgreementKey2020 is used to facilated the encryption and decryption of the didComm message 
+
+    - JsonWebKey2020 can be used for signing and verification of the didComm message
+
+    - Ed25519VerificationKey2018 can be used for signing and verification of the didComm message
+
+
 #### Specific Requirements
 
 [Specification From Dif](https://identity.foundation/didcomm-messaging/spec/#specific-requirements)
@@ -40,9 +49,9 @@ All this three message formats can be correctly understood as generic JWMs (ref 
 will be added soon
 
 ## Privacy Concerns
-will be added soon
-## Backwards Compatibility
-will be added soon
+Secret Keys should be stored in secure storage and should be used only when required.(decrypting the message and signing the message), user Should own and control the keys.
+
+## Goals
 
 ## Reference Implementation
 [Did Comm Lattest Draft](https://identity.foundation/didcomm-messaging/spec/)
