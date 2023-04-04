@@ -371,4 +371,6 @@ transport protocol (udp/tcp)
 May be some higher level protocols like (webrtc)
 
 Actually webrtc could be more secure as it doesnot require server.
+Webrtc supports p2p realtime audio video text communication over udp if didcomm enlist audio and video in the spec later webrtc could be a potential Higher level transport protocol for didcomm.
+
 
