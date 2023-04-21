@@ -45,7 +45,7 @@ An example of a consensus parameter in Tendermint-based chains that is present b
 
 The `subspace` attribute indicates the module to which the parameter belongs. The `key` attribute specifies the name of the parameter. The `value` attribute represents the new value to which the parameter will be updated.
 
-After a proposal is raised, a voting period of three days is observed during which network stakeholders (validators and their delegators) cast their votes. If the proposal gains at least 50% approval, it is implemented in the network and the value of `SlashFractionDowntime` fraction is updated to `0.365000000000000000`.
+After a proposal is raised, a voting period of three days is observed during which network stakeholders (validators and their delegators) cast their votes. If the proposal gains at least 50% approval, it is implemented in the network and the value of `SlashFractionDowntime` fraction is updated to `0.365000000000000000`. (Refer `Governance Parameter` section [here](https://explorer.hypersign.id/hypersign-testnet/parameters) to learn more about parameters related to Governance Proposals)
 
 #### `CreateDidFee` Fixed-Fee Paramter
 
