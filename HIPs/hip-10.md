@@ -1,6 +1,6 @@
 ---
 hip: 10
-title: `did:hid` Method Specification
+title: did:hid Method Specification
 authors: Arnab Ghose <arnab@hypermine.in>, Vishwas Anand Bhushan <vishwas@hypermine.in>
 status: Draft
 type: Standards Track
@@ -8,7 +8,7 @@ category: Core
 created: 2023-04-21
 ---
 
-## Introduction
+## `did:hid` Method Specification
 
 The `did:hid` specification is intended to be a Standard for Decentralized Identifiers (DIDs) on the Hypersign Identity Network. 
 
