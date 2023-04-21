@@ -784,6 +784,6 @@ Refer [here](https://github.com/hypersign-protocol/hid-node) for Hypersign Ident
 
 The Alphanumeric `method-specific-id` format was implemented to accomodate identifiers such as UUIDs or ENS styled domains (arnab.hid). It should be also noted that this could leave room for strings to be included in DID Id which may not be intended to be stored in Public Domain.
 
-## Security Concern
+## Security Considerations
 
 The Alphanumeric `method-specific-id` format can allow wallet addresses to pass through, and since the ownership of the `method-specific-id` cannot be proven, unlike CAIP-10 Blockchain Account ID rule, the DID Document will be registered regardless. This is also a reason why CAIP-10 Blockchain Account ID was introduced as rule, since it will have to go through the ownership check. Hence, it is advised to use the CAIP-10 Blockchain Account ID, if the intention is to link a wallet address with a DID Document.
