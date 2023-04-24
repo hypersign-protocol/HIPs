@@ -16,7 +16,7 @@ The Hypersign Identity Network is a permissionless blockchain network to manage 
 
 ## Use Cases
 
-The `did:hid` Method Specification is being designed to address a wide variety of use cases related to self-sovereign identity (SSI).
+The `did:hid` Method Specification is being designed to address a wide variety of use cases related to self-sovereign identity (SSI). Some of them are as follows:
 
 ### Web3 Reputation
 
@@ -24,7 +24,11 @@ A reputation score can be assigned to a blockchain wallet address to indicate it
 
 ### Organizational Identity Access and Management
 
-Decentralized identifiers (DIDs) can be registered not only for individuals but also for organizations. An employee who already has a registered DID Document can register a DID for the organization, with the employee's DID serving as the controller of the organization's DID Document. 
+Decentralized identifiers (DIDs) can be registered not only for individuals but also for organizations. An employee who already has a registered DID Document can register a DID for the organization, with the employee's DID serving as the controller of the organization's DID Document. Furthermore, the employee, as the controller can, authorize their colleagues to also control the organization's DID.
+
+### Cross Chain ID Verification
+
+Our vision is for Hypersign DIDs and credentials to be queryable and verifiable across various blockchains within the [Cosmos Ecosystem](https://cosmos.network/) and beyond, through the [Inter-Blockchain Communication Protocol (IBC) Protocol](https://ibcprotocol.org/). For instance, if a user wishes to access a blockchain that offers a DEX (Decentralised Exchange) service within the Cosmos Ecosystem, they must first provide proof of their KYC credentials to the DEX. The DEX can query the Hypersign Blockchain for the user's DID Document by querying through IBC module and verify the proof of KYC before allowing the user to trade.
 
 ## Method Syntax
 
@@ -165,7 +169,7 @@ The Cryptographic Algorithms that the specification supports for Verification Ke
 }
 ```
 
-3. **EcdsaSecp256k1RecoverySignature2020**
+3. **EcdsaSecp256k1RecoveryMethod2020**
 
 ```json
 {
@@ -180,7 +184,7 @@ The Cryptographic Algorithms that the specification supports for Verification Ke
 
 A simple signature verification algorithm involves three components: a message, public key, and signature. When verifying a signed DID Document, it's important to ensure that the document was signed as-is.
 
-However, there may be situations where a DID Document is signed by a blockchain wallet. These wallets often don't sign the DID Document as-is, but instead encapsulate it with a standard document before signing it. To verify the DID Document, we need to first encapsulate the provided DID Document within the same structure that the wallet had encapsulated before signing it, and then proceed with the verification.
+However, there may be situations where a DID Document is signed by a blockchain wallet. These wallets often don't sign the DID Document as-is, but instead encapsulate it with a standard format/structure before signing it. To verify the DID Document, we need to first encapsulate the provided DID Document within the same structure that the wallet had encapsulated before signing it, and then proceed with the verification.
 
 Since different wallets have different approaches to signing a message, it's necessary to have a `ClientSpec` to label the origin of a signature. Currently, two supported ClientSpec methods are available: 
 
@@ -189,6 +193,10 @@ Since different wallets have different approaches to signing a message, it's nec
 | [cosmos-ADR036](https://github.com/cosmos/cosmos-sdk/blob/main/docs/architecture/adr-036-arbitrary-signature.md) | [Keplr](https://www.keplr.app/) |
 | [eth-personalSign](https://docs.metamask.io/wallet/how-to/sign-data/#use-personal_sign) | [MetaMask](https://metamask.io/) |
  
+Because signed documents can originate from both wallets and non-wallet sources, this attribute is **optional**.
+
+**Note**: ClientSpec mentioned here may be subject to change based on future research. For example, with the introduction of [EIP-712](https://eips.ethereum.org/EIPS/eip-712), [eth-personalSign](https://docs.metamask.io/wallet/how-to/sign-data/#use-personal_sign) may no longer be the preferred method for signing DID Documents. For the sake of simplicity, [eth-personalSign](https://docs.metamask.io/wallet/how-to/sign-data/#use-personal_sign) was introduced for the initial implementation of ClientSpec.
+
 ## DID Operations
 
 ### Create DID
@@ -197,10 +205,10 @@ To register a DID Document on the Hypersign Identity Network, an RPC call is mad
 
 - The DID Document itself.
 - Signatures for verification of Verification Methods and Controllers.
-- `clientSpec` (Refer [here](#clientspec-overview))
+- [Optional] `clientSpec` (Refer [here](#clientspec-overview))
 
 
-A typical Create DID RPC call would look something like the following:
+A typical representation of a Create DID RPC call would look something like the following:
 
 ```js
 CreateDidRPC({
@@ -353,9 +361,45 @@ Signatures:
 
 The DID Document will not be registered, since there is no verification method present which corresponds to the CAIP-10 Blockchain Account ID `eip155:1:0x35A868a3e18514870407F722B243f0780d290A93`.
 
+4. VALID: A DID Document which has a CAIP-10 Blockchain Account ID in its `method-specific-id` and the corresponding verification method is present.
+
+Consider the following DID Document to be registered:
+
+```json
+{
+    "id": "did:hid:eip155:1:0x35A868a3e18514870407F722B243f0780d290A93",
+    "controller": [ "did:hid:eip155:1:0x35A868a3e18514870407F722B243f0780d290A93" ],
+    "verificationMethod": [
+        {
+            "id": "did:hid:eip155:1:0x35A868a3e18514870407F722B243f0780d290A93#k1",
+            "type": "EcdsaSecp256k1RecoveryMethod2020",
+            "controller": "did:hid:eip155:1:0x35A868a3e18514870407F722B243f0780d290A93",
+            "blockchainAccountId": "eip155:1:0x35A868a3e18514870407F722B243f0780d290A93",
+        }
+    ],
+}
+```
+
+Signatures:
+
+```json
+[
+    {
+        "verification_method_id": "did:hid:eip155:1:0x35A868a3e18514870407F722B243f0780d290A93#k1",
+        "signature": "<valid signature string>",
+        "clientSpec": {
+            "type": "eth-personalSign",
+            "adr036SignerAddress": ""
+        }
+    }
+]
+```
+
+The DID Document will be registered, since there is a verification method present which corresponds to the CAIP-10 Blockchain Account ID `eip155:1:0x35A868a3e18514870407F722B243f0780d290A93`.
+
 ### Query DID
 
-DID Documents can be queried using DID ID either through a gRPC or API call. The API layer is glued to the gRPC layer through `grpc-gateway`. A typical Query DID Call would look something like the following:
+DID Documents can be queried using DID ID either through a gRPC or API call. The API layer is glued to the gRPC layer through `grpc-gateway`. A typical representation of a Query DID Call would look something like the following:
 
 ```js
 QueryDIDRPC({
@@ -409,9 +453,9 @@ To update a DID Document on the Hypersign Identity Network, an RPC call is made 
 - Updated DID Document.
 - `versionId` of the updated DID Document.
 - Signatures for verification of Verification Methods and Controllers.
-- `clientSpec` (Refer [here](#clientspec-overview))
+- [Optional] `clientSpec` (Refer [here](#clientspec-overview))
 
-A typical Update DID RPC call would look something like the following:
+A typical representation of a Update DID RPC call would look something like the following:
 
 ```js
 UpdateDidRPC({
@@ -659,9 +703,9 @@ To deactivate a DID Document on the Hypersign Identity Network, an RPC call is m
 - DID Document ID.
 - `versionId` of the DID Document which is meant to be deactivated.
 - Signatures for verification of Verification Methods and Controllers.
-- `clientSpec` (Refer [here](#clientspec-overview))
+- [Optional] `clientSpec` (Refer [here](#clientspec-overview))
 
-A typical Deactivate DID RPC call would look something like the following:
+A typical representation of a Deactivate DID RPC call would look something like the following:
 
 ```js
 DeactivateDidRPC({
