@@ -28,7 +28,8 @@ Decentralized identifiers (DIDs) can be registered not only for individuals but 
 
 ### Cross Chain ID Verification
 
-Our vision is for Hypersign DIDs and credentials to be queryable and verifiable across various blockchains within the [Cosmos Ecosystem](https://cosmos.network/) and beyond, through the [Inter-Blockchain Communication Protocol (IBC) Protocol](https://ibcprotocol.org/). For instance, if a user wishes to access a blockchain that offers a DEX (Decentralised Exchange) service within the Cosmos Ecosystem, they may first provide zk-proof of their KYC credentials to the DEX. The DEX can query the Hypersign Blockchain for the user's DID Document by querying through IBC module and verify the proof of KYC before allowing the user to trade.
+Our vision is for Hypersign DIDs and credentials to be queryable and verifiable across various blockchains within the [Cosmos Ecosystem](https://cosmos.network/) and beyond, through the [Inter-Blockchain Communication Protocol (IBC) Protocol](https://ibcprotocol.org/). For instance, if a user wishes to access a blockchain that offers a DEX (Decentralised Exchange) service within the Cosmos Ecosystem, they may first provide zk-proof of their KYC credentials to the DEX. The DEX can query the Hypersign Blockchain for the user's DID Document by [querying through IBC module](https://github.com/hypersign-protocol/HIPs/blob/main/HIPs/hip-5.md) and verify the proof of KYC before allowing the user to trade. This will bring compliance to web3 ecosystem (without voilating web3 principles), making it much more safer place to be.
+
 
 ## Method Syntax
 
