@@ -1,6 +1,6 @@
 ---
 hip: 11
-title: EthereumEip712Signature2021
+title: [EthereumEip712Signature2021](https://github.com/hypersign-protocol/EthereumEip712Signature2021Suite)
 author: Pratap Mridha <https://github.com/Pratap2018>
 status: Draft
 type: Standards Track
