@@ -38,7 +38,7 @@ At high level, there are 2 steps:
 
 Refer to the basic architecture of wallet/DID whitelisting below for better visualization:
 
-![high-level](/images/hip-12/241242630-9870a6c7-7c9f-4a0e-bbeb-88314b31372e.png)
+![high-level](https://user-images.githubusercontent.com/15328561/241242630-9870a6c7-7c9f-4a0e-bbeb-88314b31372e.png)
 
 > Note: For this HIP we will focus only on zk-KYC (point 1 and 2) and not one cross-chain aspects or IBC side of things. For cross-chain workflow in IBC, kindly checkout [HIP-13](https://github.com/hypersign-protocol/HIPs/blob/main/HIPs/hip-13.md).
 
@@ -203,7 +203,7 @@ User generates a Verifiable Presentation by signing a `challenge` given by the v
 
 The Verifiable presentation along with list of countries where exclusion (user should not belong to this list) has to proved and other private inputs are sent to the ZK-SNARK [circuit](https://github.com/hypersign-protocol/delphi-hackathon/blob/main/zkp/Hypersign_circuits/vp.circom) for proof generation.
 
-![zk-kyc-attribute-membership-circuit](/images/hip-12/241677934-429f17c7-7dcd-4703-be67-284554d7238d.png)
+![zk-kyc-attribute-membership-circuit](https://user-images.githubusercontent.com/15328561/241677934-429f17c7-7dcd-4703-be67-284554d7238d.png)
 
 
 The zk-proof generation  goes through bunch of checks like, `data integrity check`, `issuer signature checks`, `user's signature check`,`membership check` etc and produces `zk-proof` and `public signals`. The public signal contains either `0` or `1`. `0` if this users is not part the exculded country list and `1` if otherwise. 
