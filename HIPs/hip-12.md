@@ -1,5 +1,5 @@
 ---
-hip: 13
+hip: 12
 title: Privacy Preserving cross-chain KYC using Zero Knowledge Proof and Verifiable credentials
 authors: Pratap <prataphypermine.in>, Vishwas Anand Bhushan <vishwas@hypermine.in>
 status: Draft
