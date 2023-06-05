@@ -20,7 +20,7 @@ The `host` contract maintains a state variable called `count` which is of type `
 
 The following sequence diagram illustrates the flow of cross-chain contract interactions. The subsequent sections will cover the details of the methods mentioned in the diagram.
 
-![sequence-diagram-cosmwasm-interaction](./images/cross-chain-cosmwasm-interaction.png)
+![cross-chain-cosmwasm-interaction](https://github.com/hypersign-protocol/HIPs/assets/32813269/d066a496-a4a1-474f-99ad-215e96a9d81f)
 
 ### Enabling IBC for Contracts
 
