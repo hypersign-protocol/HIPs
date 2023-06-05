@@ -18,6 +18,10 @@ In order to illustrate the concept of cross-chain smart contract interaction, le
 
 The `host` contract maintains a state variable called `count` which is of type `u64`. Its purpose is to increment the value of the `count` variable when it receives an IBC packet from the `controller` contract. Upon successfully incrementing the `count` variable, an acknowledgment is sent back to the `controller` contract, after which, a map named `address_map` is created to store the relationship between the address of the user who initiated the increment request from the `controller` contract and the number of times they have requested to increment the `count` variable in the `host` contract. Essentially, the `controller` contract acts as a reference point for users to initiate cross-chain contract interactions.
 
+The following sequence diagram illustrates the flow of cross-chain contract interactions. The subsequent sections will cover the details of the methods mentioned in the diagram.
+
+![sequence-diagram-cosmwasm-interaction](./images/cross-chain-cosmwasm-interaction.png)
+
 ### Enabling IBC for Contracts
 
 CosmWasm contracts are not IBC enabled by default. The following are the methods that need to be implemented in Smart Contracts intended for use with IBC:
