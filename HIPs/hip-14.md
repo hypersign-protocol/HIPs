@@ -28,9 +28,11 @@ Insert, Search, and Delete operations can be achieved in `O(1)` complexity, maki
 
 A Merkle tree is essentially a binary tree formed by recursively hashing its leaf nodes, combining them in pairs, and continuing this process until a single root node is obtained. A Sparse Merkle tree is a variant of the Merkle tree that optimizes space efficiency by selectively including only non-empty leaf nodes and intermediate nodes in the tree structure.
 
-A similar property shared by these two data structures is that we can prove whether a leaf node is part of a particular tree or not, which conveniently fits with the problem statement we are trying to solve. In this case, `blockchainAccountId` could act as a leaf of the tree. During a DID Create Operation, if a `blockchainAccountId` is already part of the tree, we will stop the operation. If it isn't, it is added to the tree.
+A similar property shared by these two data structures is that we can prove whether a leaf node is part of a particular tree or not, which conveniently fits with the problem statement we are trying to solve. In this case, `blockchainAccountId` could act as a leaf of the tree. During a DID Create Operation, if a `blockchainAccountId` is already part of the tree, we will stop the operation. If it isn't, it is added to the tree. Following schematic is a rough implementation idea of Merkle Tree for `blockchainAccountId` on Hypersign:
 
-Unlike the former approach, we won't need to maintain a separate storage specific to `blockchainAccountId` since we can utilize the existing DID Document storage where the `blockchainAccountId` is already present.
+<img width="970" alt="merkletree_hypersign" src="https://github.com/hypersign-protocol/HIPs/assets/32813269/0a0cafee-6f5d-4122-9355-01e30ccece8a">
+
+Unlike the former approach, we won't need to maintain a separate storage specific to `blockchainAccountId` since we can utilize the existing DID Document storage where the `blockchainAccountId` is already present to fetch all the `blockchainAccountId`s.
 
 ## Decision
 
