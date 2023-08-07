@@ -2,7 +2,7 @@
 hip: 14
 title: Unique wallet addresses across DID Documents
 author: Arnab Ghose <arnab@hypermine.in>
-status: Draft
+status: Implemented
 type: Standards Track
 category: Core
 created: 2023-06-23
