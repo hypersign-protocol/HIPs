@@ -42,14 +42,14 @@ Let's look at some examples of Acitivty Contracts with Proxy Contract Pairing ar
 
 In a Decentralised Exechange, when a user tend to deposit tokens in a Liquidity Pool in exchange for rewards, they tend to take a "position" in the pool. A user can take as many positions as they want in a Liquidity Pool.
 
-Check out the implementation of this Activity [here](), where we essentially check if a user has taken *any* position in a specific Liquidity Pool or not
+Check out the implementation of this Activity [here](https://github.com/hypersign-protocol/interchain-web3-reputation/tree/develop/activities/contracts/osmosis-lp-position), where we essentially check if a user has taken *any* position in a specific Liquidity Pool or not
 
 
 **Example: Ownership of a Stargaze NFT**
 
 Another interesting example could proving if a user owns a NFT on Stargaze chain.
 
-Check out the implementation of this Activity [here]()
+Check out the implementation of this Activity [here](https://github.com/hypersign-protocol/interchain-web3-reputation/tree/develop/activities/contracts/stargaze-nft-ownership)
 
 
 ### Activity Manager Contract
