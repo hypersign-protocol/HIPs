@@ -40,17 +40,257 @@ Let's look at some examples of Acitivty Contracts with Proxy Contract Pairing ar
 
 **Example: Liquidity Position in Osmosis**
 
-In a Decentralised Exechange, when a user tend to deposit tokens in a Liquidity Pool in exchange for rewards, they tend to take a "position" in the pool. A user can take as many positions as they want in a Liquidity Pool.
+In a Decentralised Exechange, when a user tend to deposit tokens in a Liquidity Pool in exchange for rewards, they tend to take a "position" in the pool. A user can take as many positions as they want in a Liquidity Pool. Since, LP position information is managed by `concentratedliquidity` module and there aren't any dedicated Wasm Bindings to fetch this info, the Proxy contract utilises Stargate Query to accomplish this.
 
 Check out the implementation of this Activity [here](https://github.com/hypersign-protocol/interchain-web3-reputation/tree/develop/activities/contracts/osmosis-lp-position), where we essentially check if a user has taken *any* position in a specific Liquidity Pool or not
 
 
-**Example: Ownership of a Stargaze NFT**
+**Example: Ownership of Stargaze NFT**
 
-Another interesting example could proving if a user owns a NFT on Stargaze chain.
+This activity is to check if a user owns NFT of particular collection on Stargaze chain. Since, NFTs are available as CosmWasm Contracts, the proxy contract simply performs intra-contract calls to get ownership info from the NFT contracts.
 
 Check out the implementation of this Activity [here](https://github.com/hypersign-protocol/interchain-web3-reputation/tree/develop/activities/contracts/stargaze-nft-ownership)
 
+**Example: Ownership of Omniflix NFT**
+
+This activity is to check if a user owns NFT of particular collection on Omniflix chain. Similar to Osmosis example, we utilise Stargate queries to fetch the information because all NFT related work is done by a Cosmos module instead of a CosmWasm contract.
+
+Check out the implementation of this Activity [here](https://github.com/hypersign-protocol/interchain-web3-reputation/tree/develop/activities/contracts/omniflix-nft-ownership)
+
+
+### Activity Package Specification
+
+We have a created a Rust package named `activity` which aids developers in building their own smart contracts. It consists of the necessary basic Enums and Traits that developers can simply import and extend. Check out the package [here](https://github.com/hypersign-protocol/interchain-web3-reputation/tree/develop/activities/packages/activity)
+
+**Enums**
+
+Following are the enums which the developers must implement:
+
+`ActivityExecuteMsg` - These are execution based enums. It has a generic `T` which lets developers to extend the `activity_params` attribute by including fields which are based on the use-case of the Activity contract
+
+```rs
+pub enum ActivityExecuteMsg<T>
+{
+    PerformActivity {
+        did_id: String,
+        activity_params: T
+    }
+}
+```
+
+`ActivityQueryMsg` - These are query based enums. There are basic information which a contract should have such as Contract name, contract score and conract description, along with the ability to check where a `did_id` has completed the activity or not.
+
+```rs
+pub enum ActivityQueryMsg {
+    // Returns Activity Name
+    Name {},
+
+    // Returns Activity Score
+    Score {},
+
+    // Returns Activity Description
+    Description {},
+
+    // Check if Activity executed by a DID Id is completed or not
+    CheckActivityStatus{
+        did_id: String
+    },
+}
+```
+
+**Traits**
+
+Execute and Query based traits enforce function definitions for developers to extend and write their own logic within these functions
+
+- `ActivityExecute`
+
+```rs
+pub trait ActivityExecute<T>
+{
+    type Err: ToString;
+
+    fn perform_activity(
+        &self,
+        deps: DepsMut,
+        env: Env,
+        did_id: String,
+        activity_params: T
+    ) -> Result<Response, Self::Err>;
+}
+```
+
+- `ActivityQuery`
+
+```rs
+pub trait ActivityQuery {
+    fn name(
+        &self,
+        deps: Deps
+    ) -> StdResult<NameResponse>;
+
+    fn score(
+        &self,
+        deps: Deps
+    ) -> StdResult<ScoreResponse>;
+
+    fn description(
+        &self,
+        deps: Deps
+    ) -> StdResult<DescriptionResponse>;
+
+    fn check_activity_status(
+        &self,
+        deps: Deps,
+        did_id: String,
+    ) -> StdResult<CheckActivityStatusResponse>;
+}
+```
+
+**Implementation Example**
+
+Let's consider [Osmosis LP Activity](https://github.com/hypersign-protocol/interchain-web3-reputation/tree/develop/activities/contracts/osmosis-lp-position) contract as an example. We will have a surface level look at relevant part of the contract only.
+
+In `Cargo.toml` of the project, add the following line to add the package
+
+```rs
+activity = { git = "https://github.com/hypersign-protocol/interchain-web3-reputation.git", branch = "develop" }
+```
+
+We have defined a struct called `OsmosisActivityContract` which will implement the activity package traits
+
+```rs
+// state.rs
+pub struct OsmosisActivityContract<'a> 
+{
+    pub activity_map: Map<'a, String, bool>,
+}
+
+impl<'a> Default for OsmosisActivityContract<'static>
+{
+    fn default() -> Self {
+        Self { 
+            activity_map: Map::new("activity_map"),
+        }
+    }
+}
+
+impl<'a> OsmosisActivityContract<'a>
+{
+    pub fn new(
+        activity_map_key: &'a str,
+    ) -> Self {
+        Self { 
+            activity_map: Map::new(activity_map_key)
+        }
+    }
+}
+```
+
+We now implement the Execute and Query traits for this struct like following:
+
+```rs
+// state.rs
+use activity::{ActivityExecute, ActivityQuery};
+
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Eq, JsonSchema)]
+pub struct ActivityParams {
+    pub ibc_channel: String,
+}
+
+impl<'a> ActivityExecute<ActivityParams> for OsmosisActivityContract<'a>
+{   
+    type Err = ContractError;
+
+    fn perform_activity(
+        &self,
+        deps: DepsMut,
+        env: Env,
+        did_id: String,
+        activity_params: ActivityParams
+    ) -> Result<Response, ContractError> {
+        // .. Implementation of perform activity -- //
+    } 
+}
+
+impl<'a> ActivityQuery for OsmosisActivityContract<'a>
+{
+    fn name(
+        &self,
+        deps: Deps
+    ) -> StdResult<activity::NameResponse> {
+        // -- Implementation -- //
+    }
+
+    fn score(
+        &self,
+        deps: Deps
+    ) -> StdResult<activity::ScoreResponse> {
+        // -- Implementation -- //
+    }
+
+    fn description(
+            &self,
+            deps: Deps
+        ) -> StdResult<activity::DescriptionResponse> {
+        // -- Implementation -- //
+    }
+
+    fn check_activity_status(
+        &self,
+        deps: Deps,
+        did_id: String,
+    ) -> StdResult<activity::CheckActivityStatusResponse> {
+        // -- Implementation -- //
+    }
+}
+```
+
+Now, can associate these struct methods with activity package Enums as follows:
+
+```rs
+// query.rs
+use activity::ActivityQueryMsg;
+
+impl<'a> OsmosisActivityContract<'a> {
+    pub fn query(
+        &self,
+        deps: Deps,
+        _env: Env,
+        msg: ActivityQueryMsg
+    ) -> StdResult<Binary> {
+        match msg {
+            ActivityQueryMsg::Name {  } => to_json_binary(&self.name(deps)?),
+            ActivityQueryMsg::Score {  } => to_json_binary(&self.score(deps)?),
+            ActivityQueryMsg::Description {  } => to_json_binary(&self.description(deps)?),
+            ActivityQueryMsg::CheckActivityStatus { did_id } => to_json_binary(&self.check_activity_status(deps, did_id)?)
+        }
+    }
+}
+```
+
+```rs
+// execute.rs
+use activity::ActivityExecuteMsg;
+
+impl<'a> OsmosisActivityContract<'a> {
+    pub fn execute(
+        &self,
+        deps: DepsMut,
+        env: Env,
+        _info: MessageInfo,
+        msg: ActivityExecuteMsg<ActivityParams>
+    ) -> Result<Response, ContractError> {
+        match msg {
+            ActivityExecuteMsg::PerformActivity { 
+                did_id, 
+                activity_params 
+            } => self.perform_activity(deps, env, did_id, activity_params)
+        }
+    }
+}
+```
+
+Please note that this is just one way of implementation, and its completely upon the developer as to how they wish to structure their activity contract project
 
 ### Activity Manager Contract
 
